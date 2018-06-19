@@ -1,33 +1,26 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Photos</h1>
+<h1>写真一覧</h1>
 
+<%= link_to '写真をアップロードする', new_photo_path %>
+
+<hr>
 <table>
   <thead>
     <tr>
-      <th>Title</th>
-      <th>Created_at</th>
-      <th>Picture</th>
+      <th>タイトル</th>
+      <th>作成日</th>
+      <th>アップロード画像</th>
       <th>SNS</ht>
       <th colspan="3"></th>
     </tr>
   </thead>
 
   <tbody>
-    <% @photos.each do |photo| %>
-      <tr>
-        <td><%= photo.title %></td>
-        <td><%= photo.updated_at %></td>
-        <td><%= image_tag(photo.picture_url, width: 300) if photo.picture.present? %></td>
-        <td><a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-text="写真をシェアするよ！" data-url="#{File.join(request.url, photo_path)}"a-hashtags="#photos" data-lang="ja" data-show-count="false">Tweet</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script></td>
-        <td><%= link_to 'Show', photo %></td>
-        <td><%= link_to 'Edit', edit_photo_path(photo) %></td>
-        <td><%= link_to 'Destroy', photo, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
+    <tr>
+      <th colspan="4">
+        <%= @photos.present? ? render(@photos) : "アップロードされた写真はありません" %>
+      </th>
+    </tr>
   </tbody>
 </table>
-
-<br>
-
-<%= link_to 'New Photo', new_photo_path %>
