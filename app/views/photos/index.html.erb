@@ -8,6 +8,7 @@
       <th>Title</th>
       <th>Created_at</th>
       <th>Picture</th>
+      <th>SNS</ht>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -18,6 +19,7 @@
         <td><%= photo.title %></td>
         <td><%= photo.updated_at %></td>
         <td><%= image_tag(photo.picture_url, width: 300) if photo.picture.present? %></td>
+        <td><a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-text="写真をシェアするよ！" data-url="#{File.join(request.url, photo_path)}"a-hashtags="#photos" data-lang="ja" data-show-count="false">Tweet</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script></td>
         <td><%= link_to 'Show', photo %></td>
         <td><%= link_to 'Edit', edit_photo_path(photo) %></td>
         <td><%= link_to 'Destroy', photo, method: :delete, data: { confirm: 'Are you sure?' } %></td>
