@@ -19,6 +19,8 @@ class PhotosController < ApplicationController
   # GET /photos/new
   def new
     @photo = Photo.new
+    @title = "写真アップロード"
+    @image = ""
   end
 
   # GET /photos/1/edit
