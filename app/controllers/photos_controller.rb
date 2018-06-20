@@ -5,11 +5,15 @@ class PhotosController < ApplicationController
   # GET /photos.json
   def index
     @photos = Photo.all.order(created_at: :desc)
+    @title = "写真TOPです"
+    @image = ""
   end
 
   # GET /photos/1
   # GET /photos/1.json
   def show
+    @title = @photo.title
+    @image = @photo.picture_url
   end
 
   # GET /photos/new

@@ -7,6 +7,13 @@
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta property="og:title" content=<%= @title %>>
+    <meta property="og:description" content="">
+    <meta property="og:image" content=<%= File.join(request.url, @image) %>>
+    <meta property="og:site_name" content="example.com">
+    <meta property="og:locale" content="ja_JP">
   </head>
 
   <body>
