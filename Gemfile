@@ -41,8 +41,16 @@ gem 'jbuilder', '~> 2.5'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
 
-#Use carrierwave image uploader
+# Use carrierwave image uploader
 gem 'carrierwave'
+
+# TwitterAPI Auth
+gem 'omniauth'
+gem 'omniauth-twitter'
+gem 'twitter'
+
+# secret ENV info
+gem 'dotenv-rails', require: 'dotenv/rails-now'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

@@ -1,26 +1,21 @@
 class PhotosController < ApplicationController
-  before_action :set_photo, only: [:show, :edit, :update, :destroy]
+  before_action :set_photo, only: [:show, :edit, :update, :destroy, :twitter_create]
+  before_action :twitter_client, only: [:twitter_create]
 
   # GET /photos
   # GET /photos.json
   def index
     @photos = Photo.all.order(created_at: :desc)
-    @title = "写真TOPです"
-    @image = ""
   end
 
   # GET /photos/1
   # GET /photos/1.json
   def show
-    @title = @photo.title
-    @image = @photo.picture_url
   end
 
   # GET /photos/new
   def new
     @photo = Photo.new
-    @title = "写真アップロード"
-    @image = ""
   end
 
   # GET /photos/1/edit
@@ -68,14 +63,35 @@ class PhotosController < ApplicationController
     end
   end
 
+  def twitter_create
+    media_url = File.join(root_url(only_path: false), @photo.picture_url)
+    media = open(media_url)
+    @client.update_with_media("テスト", media) if @client
+    flash[:notice] = "#{@photo.title} をつぶやきました。"
+
+    redirect_to root_path
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_photo
-      @photo = Photo.find(params[:id])
+      @photo = Photo.find(params[:id] || params[:photo_id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def photo_params
       params.require(:photo).permit(:title, :picture)
     end
+
+   def twitter_client
+     return @client = nil if session[:user_id].blank?
+
+     user = User.find(session[:user_id])
+     @client = Twitter::REST::Client.new do |config|
+       config.consumer_key = user.consumer_key
+       config.consumer_secret = user.consumer_secret
+       config.access_token = user.token
+       config.access_token_secret = user.secret
+     end
+  end
 end
