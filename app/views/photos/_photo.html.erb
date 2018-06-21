@@ -3,7 +3,7 @@
   <td><%= I18n.l(photo.updated_at) %></td>
   <td><%= link_to image_tag(photo.picture_url, width: 300), photo if photo.picture.present? %></td>
   <td>
-    <%= session[:user_id] ? (link_to 'Tweet', photo_twitter_create_path(photo.id)) : "Tweetする場合は、左上からログインしてください" %>
+    <%= logged_in? ? (link_to 'Tweet', photo_twitter_create_path(photo.id)) : "Tweetする場合は、左上からログインしてください" %>
   </td>
   <td><%= link_to '詳細ページ', photo %></td>
   <td><%#= link_to 'Edit', edit_photo_path(photo) %></td>
